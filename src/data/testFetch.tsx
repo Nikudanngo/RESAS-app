@@ -8,11 +8,9 @@ interface prefecturesItem {
     prefCode: number;
     prefName: string;
   }[];
-  statusCode: number;
-  id: number;
-  title: string;
-  body: string;
   message: string;
+  statusCode: number;
+  body: string;
   forbidden: boolean;
   description: string;
 }
