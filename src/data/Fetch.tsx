@@ -1,52 +1,51 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 interface prefecturesItem {
-  prefCode: number;
-  prefName: string;
+  result: {
+    prefCode: number;
+    prefName: string;
+  }[];
+  message: string;
   statusCode: number;
-  id: number;
-  title: string;
+  body: string;
+  forbidden: boolean;
+  description: string;
 }
 
 const Fetch = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [posts, setPosts] = useState<prefecturesItem[]>([]);
+  const [post, setPost] = useState<prefecturesItem | null>(null);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      //   headers: {
-      //     "X-API-KEY": `${process.env.REACT_APP_RESAS_API_KEY}`,
-      //   },
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          setIsLoaded(true);
-          setPosts(data);
+    axios
+      .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+        headers: {
+          "X-API-KEY": `${process.env.REACT_APP_RESAS_API_KEY}`,
         },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
+      })
+      //   "X-API-KEY": `${process.env.REACT_APP_RESAS_API_KEY}`,
+      .then((res) => {
+        setIsLoaded(true);
+        setPost(res.data);
+      })
+      .catch((err) => {
+        setIsLoaded(true);
+        setError(err.message);
+      });
   }, []);
 
-  if (error) {
-    return <div>Error: エラー</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <div>
-        <ul>
-          {posts.map((prop) => (
-            <li key={prop.id}>{prop.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  if (!post) return <p>error</p>;
+
+  return (
+    <div>
+      <ul>
+        {post.result.map((item) => (
+          <li key={item.prefCode}>{item.prefName}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Fetch;
