@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Graph from "./Graph";
 
 interface prefecturesItem {
   result: {
@@ -17,6 +18,7 @@ const Fetch = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [post, setPost] = useState<prefecturesItem | null>(null);
+  const [code, setCode] = useState("");
   useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -35,15 +37,28 @@ const Fetch = () => {
       });
   }, []);
 
-  if (!post) return <p>error</p>;
-
+  if (!post) return <p>Loading...</p>;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCode(() => e.target.value);
+  };
   return (
     <div>
       <ul>
         {post.result.map((item) => (
-          <li key={item.prefCode}>{item.prefName}</li>
+          <label>
+            <input
+              onChange={handleChange}
+              type="checkbox"
+              key={item.prefCode}
+              value={item.prefCode}
+            />
+            {item.prefName}
+          </label>
         ))}
       </ul>
+      {/* 押した県のcodeを取得 */}
+      {/* <p>{code}</p> */}
+      <Graph prefCode={code} />
     </div>
   );
 };
