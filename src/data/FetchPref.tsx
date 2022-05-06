@@ -15,7 +15,11 @@ interface prefecturesItem {
   description: string;
 }
 
-const FetchPref = () => {
+type Props = {
+  setPref: number;
+};
+
+const FetchPref = (props: any) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [post, setPost] = useState<prefecturesItem | null>(null);
@@ -59,7 +63,8 @@ const FetchPref = () => {
         ))}
       </ul>
       {/* 押した県のcodeを取得 */}
-      {/* <p>{code}</p> */}
+      <p>{code}</p>
+      <p>{props.setPref(code)}</p>
     </div>
   );
 };

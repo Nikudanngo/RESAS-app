@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import FetchPref from "./data/FetchPref";
 import FetchValue from "./data/FetchValue";
 import TestFetch from "./data/testFetch";
+import MergeFetch from "./data/MergeFetch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,9 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <FetchPref />
+    {/* <FetchPref /> */}
     {/* <FetchValue /> */}
     {/* <TestFetch /> */}
+    <MergeFetch />
   </React.StrictMode>
 );
 
