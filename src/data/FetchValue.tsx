@@ -17,10 +17,12 @@ interface populationItem {
 
 const FetchValue = (props: any) => {
   const [post, setPost] = useState<populationItem | null>(null);
+  const population = props.code;
   useEffect(() => {
     axios
       .get(
-        `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${props.code}`,
+        "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=" +
+          String(props.code),
         {
           headers: {
             "X-API-KEY": `${process.env.REACT_APP_RESAS_API_KEY}`,
@@ -29,6 +31,8 @@ const FetchValue = (props: any) => {
       )
       .then((res) => {
         setPost(res.data);
+        console.log(res.data);
+        console.log(props.code);
       })
       .catch((err) => {
         setPost(null);
@@ -38,10 +42,6 @@ const FetchValue = (props: any) => {
 
   if (!post) return <p>Loading...</p>;
 
-  return (
-    <div>
-      <p>{props.setValue(post.result[0].data.lbel)}</p>
-    </div>
-  );
+  return <div>{/* <p>{props.setValue(post.result[0].data.lbel)}</p> */}</div>;
 };
 export default FetchValue;

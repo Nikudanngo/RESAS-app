@@ -12,6 +12,7 @@ function MergeFetch() {
       {/* <FetchValue setPref={setPref} /> */}
       <FetchPref setPref={setPref} />
       <h2>{pref}</h2>
+      {/* Fetchで取得したprefCodeをFetchValueに渡す */}
       <FetchValue setValue={setValue} code={pref} />
       <h2>{value}</h2>
     </div>
