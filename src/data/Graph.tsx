@@ -11,6 +11,10 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+
+type Props = {
+  prefCode: number;
+};
 const data = [
   {
     name: "Page A",
@@ -55,10 +59,11 @@ const data = [
     amt: 2100,
   },
 ];
-function Graph(props: any) {
+function Graph(props: Props) {
   return (
     <div>
       <h1>{props.prefCode}</h1>
+      {/* <h2>{props.data.result[1].prefName}</h2> */}
       <LineChart
         width={730}
         height={250}

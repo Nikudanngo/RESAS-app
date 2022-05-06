@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import App from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Fetch from "./data/Fetch";
+import FetchPref from "./data/FetchPref";
+import FetchValue from "./data/FetchValue";
 import TestFetch from "./data/testFetch";
 
 const root = ReactDOM.createRoot(
@@ -12,7 +13,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <Fetch />
+    <FetchPref />
+    {/* <FetchValue /> */}
     {/* <TestFetch /> */}
   </React.StrictMode>
 );
