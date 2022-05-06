@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Graph from "./Graph";
-import MergeFetch from "./MergeFetch";
-import FetchValue from "./FetchValue";
+import React from "react";
 
 interface prefecturesItem {
   result: {
@@ -15,13 +12,13 @@ interface prefecturesItem {
   forbidden: boolean;
   description: string;
 }
-
 const FetchPref = (props: any) => {
-  const [error, setError] = useState<string | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [post, setPost] = useState<prefecturesItem | null>(null);
-  const [code, setCode] = useState<number | null>(null);
-  useEffect(() => {
+  const [error, setError] = React.useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [post, setPost] = React.useState<prefecturesItem | null>(null);
+  const [value, setValue] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
         headers: {
@@ -42,10 +39,31 @@ const FetchPref = (props: any) => {
   if (!post) return <p>Loading...</p>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(Number(e.target.value));
-    console.log(Number(e.target.value));
-    <FetchValue code={code} />;
+    const clickCode = Number(e.target.value);
+    console.log(clickCode);
+    if (clickCode > 0) {
+      axios
+        .get(
+          `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${clickCode}`,
+          {
+            headers: {
+              "X-API-KEY": `${process.env.REACT_APP_RESAS_API_KEY}`,
+            },
+          }
+        )
+        .then((res) => {
+          setIsLoaded(true);
+          setValue(res.data.result.data[0].data);
+          console.log(res.data.result.data[0].data);
+        })
+        .catch((err) => {
+          setIsLoaded(true);
+          setError(err.message);
+        });
+    } else if (clickCode === Number(e.target.value)) {
+    }
   };
+
   return (
     <div>
       <ul>
@@ -61,10 +79,6 @@ const FetchPref = (props: any) => {
           </label>
         ))}
       </ul>
-      {/* 押した県のcodeを取得 */}
-      {/* <p>{code}</p> */}
-      {/* 親に渡す */}
-      {/* <p>{props.setPref(code)}</p> */}
     </div>
   );
 };
