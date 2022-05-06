@@ -4,7 +4,7 @@ import FetchValue from "./FetchValue";
 
 function MergeFetch() {
   const [pref, setPref] = useState(0);
-  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
 
   return (
     <div>
@@ -12,6 +12,8 @@ function MergeFetch() {
       {/* <FetchValue setPref={setPref} /> */}
       <FetchPref setPref={setPref} />
       <h2>{pref}</h2>
+      <FetchValue setValue={setValue} code={pref} />
+      <h2>{value}</h2>
     </div>
   );
 }

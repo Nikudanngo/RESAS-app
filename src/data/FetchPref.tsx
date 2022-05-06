@@ -15,10 +15,6 @@ interface prefecturesItem {
   description: string;
 }
 
-type Props = {
-  setPref: number;
-};
-
 const FetchPref = (props: any) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -63,7 +59,8 @@ const FetchPref = (props: any) => {
         ))}
       </ul>
       {/* 押した県のcodeを取得 */}
-      <p>{code}</p>
+      {/* <p>{code}</p> */}
+      {/* 親に渡す */}
       <p>{props.setPref(code)}</p>
     </div>
   );
