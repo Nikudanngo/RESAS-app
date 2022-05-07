@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Fetch from "./data/Fetch";
+import Fetch from "./component/Fetch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
