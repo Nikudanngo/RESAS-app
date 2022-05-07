@@ -1,21 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Fetch from "./data/Fetch";
-import TestFetch from "./data/testFetch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
     <Fetch />
-    {/* <FetchValue /> */}
-    {/* <TestFetch /> */}
-    {/* <MergeFetch /> */}
   </React.StrictMode>
 );
 
