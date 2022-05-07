@@ -26,8 +26,6 @@ const FetchPref = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
-  const [prefPopulation, setPrefPopulation] =
-    React.useState<prefPopulationItem | null>(null);
   // データを格納するリストを作成
   const [prefList, setPrefList] = React.useState<any[]>([]);
   React.useEffect(() => {
@@ -51,7 +49,7 @@ const FetchPref = () => {
   if (!post) return <p>Loading...</p>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let dataTmp = prefPopulation;
+    let dataTmp: prefPopulationItem;
     let isChecked = e.target.checked;
     const clickCode = Number(e.target.value);
     const clickName = String(e.target.name);
@@ -75,31 +73,24 @@ const FetchPref = () => {
             prefName: clickName,
             data: res.data.result.data[0].data,
           };
-          setPrefPopulation(dataTmp);
           setPrefList((prev) => [...prev, dataTmp]);
           // 確認用
-          console.log(res.data.result.data[0].data);
-          console.log(prefPopulation);
-          console.log(prefList);
-          console.log(prefList);
-
+          // console.log(res.data.result.data[0].data);
+          // console.log(prefPopulation);
           // console.log(prefList);
         })
         .catch((err) => {
           setIsLoaded(true);
           setError(err.message);
         });
+    } else {
+      // チェックが外れたら
+      setPrefList((prev) => prev.filter((item) => item.prefName !== clickName));
     }
   };
   return (
     <div>
-      {prefPopulation ? (
-        // prefPopulationがある場合
-        <Graph allData={prefList} />
-      ) : (
-        // prefPopulationがない場合
-        <p>ここにグラフが表示されます．</p>
-      )}
+      <Graph allData={prefList} />
       <ul>
         {post.result.map((item, index) => (
           <label key={index}>
