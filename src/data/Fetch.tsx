@@ -26,7 +26,6 @@ const FetchPref = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
-  const [value, setValue] = React.useState<string | null>(null);
   const [prefPopulation, setPrefPopulation] =
     React.useState<prefPopulationItem | null>(null);
 
@@ -58,7 +57,8 @@ const FetchPref = () => {
     console.log(clickCode);
     console.log(isChecked);
     if (isChecked) {
-      axios
+      // チェックが入ったら
+      axios // APIを叩く
         .get(
           `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${clickCode}`,
           {
@@ -69,11 +69,12 @@ const FetchPref = () => {
         )
         .then((res) => {
           setIsLoaded(true);
-          setValue(res.data.result.data[0].data);
           setPrefPopulation({
+            // prefPopulationには、prefNameとdataを格納する
             prefName: clickName,
             data: res.data.result.data[0].data,
           });
+          // 確認用
           console.log(res.data.result.data[0].data);
           console.log(prefPopulation);
         })
@@ -86,20 +87,30 @@ const FetchPref = () => {
 
   return (
     <div>
+      {prefPopulation && ( // prefPopulationがある場合
+        <Graph
+          allData={[
+            {
+              prefName: prefPopulation.prefName,
+              data: prefPopulation.data,
+            },
+          ]}
+        />
+      )}
       <ul>
         {post.result.map((item) => (
           <label>
             <input
-              onChange={handleChange}
-              name={item.prefName}
-              type="checkbox"
-              value={item.prefCode}
+              onChange={handleChange} // 押した時に実行する関数
+              name={item.prefName} //県名
+              type="checkbox" //チェックボックス
+              value={item.prefCode} //県コード
             />
+            {/* 県名表示 */}
             {item.prefName}
           </label>
         ))}
       </ul>
-      <Graph allData={prefPopulation} />
     </div>
   );
 };
