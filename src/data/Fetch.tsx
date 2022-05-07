@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import Graph from "./Graph";
 
 interface prefecturesItem {
   result: {
@@ -12,11 +13,22 @@ interface prefecturesItem {
   forbidden: boolean;
   description: string;
 }
-const FetchPref = (props: any) => {
+
+interface prefPopulationItem {
+  prefName: string;
+  data: {
+    year: number;
+    value: number;
+  }[];
+}
+
+const FetchPref = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
   const [value, setValue] = React.useState<string | null>(null);
+  const [prefPopulation, setPrefPopulation] =
+    React.useState<prefPopulationItem | null>(null);
 
   React.useEffect(() => {
     axios
@@ -39,9 +51,13 @@ const FetchPref = (props: any) => {
   if (!post) return <p>Loading...</p>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let isChecked = e.target.checked;
     const clickCode = Number(e.target.value);
+    const clickName = String(e.target.name);
+    console.log(clickName);
     console.log(clickCode);
-    if (clickCode > 0) {
+    console.log(isChecked);
+    if (isChecked) {
       axios
         .get(
           `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${clickCode}`,
@@ -54,13 +70,17 @@ const FetchPref = (props: any) => {
         .then((res) => {
           setIsLoaded(true);
           setValue(res.data.result.data[0].data);
+          setPrefPopulation({
+            prefName: clickName,
+            data: res.data.result.data[0].data,
+          });
           console.log(res.data.result.data[0].data);
+          console.log(prefPopulation);
         })
         .catch((err) => {
           setIsLoaded(true);
           setError(err.message);
         });
-    } else if (clickCode === Number(e.target.value)) {
     }
   };
 
@@ -71,14 +91,15 @@ const FetchPref = (props: any) => {
           <label>
             <input
               onChange={handleChange}
+              name={item.prefName}
               type="checkbox"
-              key={item.prefCode}
               value={item.prefCode}
             />
             {item.prefName}
           </label>
         ))}
       </ul>
+      <Graph allData={prefPopulation} />
     </div>
   );
 };
