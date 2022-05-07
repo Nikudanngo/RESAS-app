@@ -50,6 +50,7 @@ const FetchPref = () => {
   if (!post) return <p>Loading...</p>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let dataTmp = prefPopulation;
     let isChecked = e.target.checked;
     const clickCode = Number(e.target.value);
     const clickName = String(e.target.name);
@@ -69,11 +70,11 @@ const FetchPref = () => {
         )
         .then((res) => {
           setIsLoaded(true);
-          setPrefPopulation({
-            // prefPopulationには、prefNameとdataを格納する
+          dataTmp = {
             prefName: clickName,
             data: res.data.result.data[0].data,
-          });
+          };
+          setPrefPopulation(dataTmp);
           // 確認用
           console.log(res.data.result.data[0].data);
           console.log(prefPopulation);
@@ -87,7 +88,8 @@ const FetchPref = () => {
 
   return (
     <div>
-      {prefPopulation && ( // prefPopulationがある場合
+      {prefPopulation ? (
+        // prefPopulationがある場合
         <Graph
           allData={[
             {
@@ -96,6 +98,9 @@ const FetchPref = () => {
             },
           ]}
         />
+      ) : (
+        // prefPopulationがない場合}
+        <p>ここにグラフが表示されます．</p>
       )}
       <ul>
         {post.result.map((item) => (
