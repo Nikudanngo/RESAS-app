@@ -29,7 +29,7 @@ const FetchPref = () => {
   const [prefPopulation, setPrefPopulation] =
     React.useState<prefPopulationItem | null>(null);
   // データを格納するリストを作成
-  const [prefList, setPrefList] = React.useState<prefPopulationItem[]>([]);
+  const [prefList, setPrefList] = React.useState<any[]>([]);
   React.useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -71,16 +71,19 @@ const FetchPref = () => {
         )
         .then((res) => {
           setIsLoaded(true);
-          setPrefList((prev) => [...prev, res.data.result.data[0].data]);
           dataTmp = {
             prefName: clickName,
             data: res.data.result.data[0].data,
           };
           setPrefPopulation(dataTmp);
+          setPrefList((prev) => [...prev, dataTmp]);
           // 確認用
           console.log(res.data.result.data[0].data);
           console.log(prefPopulation);
           console.log(prefList);
+          console.log(prefList);
+
+          // console.log(prefList);
         })
         .catch((err) => {
           setIsLoaded(true);
@@ -88,21 +91,13 @@ const FetchPref = () => {
         });
     }
   };
-
   return (
     <div>
       {prefPopulation ? (
         // prefPopulationがある場合
-        <Graph
-          allData={[
-            {
-              prefName: prefPopulation.prefName,
-              data: prefPopulation.data,
-            },
-          ]}
-        />
+        <Graph allData={prefList} />
       ) : (
-        // prefPopulationがない場合}
+        // prefPopulationがない場合
         <p>ここにグラフが表示されます．</p>
       )}
       <ul>
