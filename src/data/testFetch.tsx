@@ -36,9 +36,9 @@ export default function TestFetch() {
     <div>
       <h1>{process.env.REACT_APP_RESAS_API_KEY}</h1>
       <h1>
-        {post.result.map((item) => (
+        {/* {post.result.map((item) => (
           <li key={item.prefCode}>{item.prefName}</li>
-        ))}
+        ))} */}
       </h1>
       {/* 403 */}
       {/* <p>{post.result.prefCode}</p> */}

@@ -4,9 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import FetchPref from "./data/Fetch";
-import FetchValue from "./data/FetchValue";
 import TestFetch from "./data/testFetch";
-import MergeFetch from "./data/MergeFetch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

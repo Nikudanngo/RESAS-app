@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
 type Props = {
   allData: {
     prefName: string;
@@ -29,6 +28,13 @@ const Graph = (props: Props) => {
     });
   });
   const options: Highcharts.Options = {
+    caption: {
+      text: "This chart shows the population trend in Japan.",
+    },
+    accessibility: {
+      description:
+        "This chart shows the population trend in Japan. The data is sourced from the RESAS open data portal.",
+    },
     title: {
       text: "総人口推移",
     },

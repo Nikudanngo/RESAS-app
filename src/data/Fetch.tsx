@@ -28,7 +28,8 @@ const FetchPref = () => {
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
   const [prefPopulation, setPrefPopulation] =
     React.useState<prefPopulationItem | null>(null);
-
+  // データを格納するリストを作成
+  const [prefList, setPrefList] = React.useState<prefPopulationItem[]>([]);
   React.useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -70,6 +71,7 @@ const FetchPref = () => {
         )
         .then((res) => {
           setIsLoaded(true);
+          setPrefList((prev) => [...prev, res.data.result.data[0].data]);
           dataTmp = {
             prefName: clickName,
             data: res.data.result.data[0].data,
@@ -78,6 +80,7 @@ const FetchPref = () => {
           // 確認用
           console.log(res.data.result.data[0].data);
           console.log(prefPopulation);
+          console.log(prefList);
         })
         .catch((err) => {
           setIsLoaded(true);
@@ -103,8 +106,9 @@ const FetchPref = () => {
         <p>ここにグラフが表示されます．</p>
       )}
       <ul>
-        {post.result.map((item) => (
-          <label>
+        {post.result.map((item, index) => (
+          <label key={index}>
+            {/* // mapして要素増やしたらkeyする */}
             <input
               onChange={handleChange} // 押した時に実行する関数
               name={item.prefName} //県名
