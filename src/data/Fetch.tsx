@@ -22,7 +22,7 @@ interface prefPopulationItem {
   }[];
 }
 
-const FetchPref = () => {
+const Fetch = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
@@ -110,4 +110,4 @@ const FetchPref = () => {
   );
 };
 
-export default FetchPref;
+export default Fetch;
