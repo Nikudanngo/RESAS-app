@@ -2,21 +2,17 @@ import React from "react";
 import { render } from "react-dom";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-type Props = {
-  allData: {
-    prefName: string;
-    data: {
-      year: number;
-      value: number;
-    }[];
-  }[];
-};
+import { prefPopulationItem } from "./Fetch";
+
+interface Props {
+  allData: Array<prefPopulationItem>;
+}
 
 const Graph = (props: Props) => {
   let series: Highcharts.SeriesOptionsType[] = [];
-  let categories: any = [];
+  let categories: Array<number> = [];
   props.allData.map((aData) => {
-    let data: any = [];
+    let data: Array<number> = [];
     aData.data.map((d) => {
       data.push(d.value);
       categories.push(d.year);
@@ -27,7 +23,7 @@ const Graph = (props: Props) => {
       data: data,
     });
   });
-  const options: Highcharts.Options = {
+  const options = {
     caption: {
       text: "This chart shows the population trend in Japan.",
     },

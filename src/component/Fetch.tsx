@@ -14,7 +14,7 @@ interface prefecturesItem {
   description: string;
 }
 
-interface prefPopulationItem {
+export interface prefPopulationItem {
   prefName: string;
   data: {
     year: number;
@@ -27,7 +27,7 @@ const Fetch = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
   // データを格納するリストを作成
-  const [prefList, setPrefList] = React.useState<any[]>([]);
+  const [prefList, setPrefList] = React.useState<prefPopulationItem[]>([]);
   React.useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -77,7 +77,7 @@ const Fetch = () => {
           // 確認用
           // console.log(res.data.result.data[0].data);
           // console.log(prefPopulation);
-          // console.log(prefList);
+          console.log(prefList);
         })
         .catch((err) => {
           setIsLoaded(true);
