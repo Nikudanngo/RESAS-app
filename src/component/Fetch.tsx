@@ -91,7 +91,7 @@ const Fetch = () => {
   return (
     <div>
       <Graph allData={prefList} />
-      <ul>
+      <ul style={{ paddingRight: "20px" }}>
         {post.result.map((item, index) => (
           <label key={index}>
             {/* // mapして要素増やしたらkeyする */}
