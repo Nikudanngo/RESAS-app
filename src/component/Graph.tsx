@@ -22,15 +22,24 @@ const Graph = (props: Props) => {
     });
   });
   const options = {
+    chart: {
+      backgroundColor: {
+        linearGradient: [0, 0, 0, 500],
+        stops: [[0, "#fafafa"]],
+      },
+    },
+    title: {
+      text: "総人口推移",
+    },
+    subtitle: {
+      text: "参照:https://resas.go.jp/",
+    },
     caption: {
       text: "This chart shows the population trend in Japan.",
     },
     accessibility: {
       description:
         "This chart shows the population trend in Japan. The data is sourced from the RESAS open data portal.",
-    },
-    title: {
-      text: "総人口推移",
     },
     xAxis: {
       title: {
@@ -44,6 +53,22 @@ const Graph = (props: Props) => {
       },
     },
     series: series,
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 500,
+          },
+          chartOptions: {
+            legend: {
+              layout: "horizontal",
+              align: "center",
+              verticalAlign: "bottom",
+            },
+          },
+        },
+      ],
+    },
   };
   return (
     <div>
