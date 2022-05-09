@@ -53,9 +53,9 @@ const Fetch = () => {
     let isChecked = e.target.checked;
     const clickCode = Number(e.target.value);
     const clickName = String(e.target.name);
-    console.log(clickName);
-    console.log(clickCode);
-    console.log(isChecked);
+    // console.log(clickName);
+    // console.log(clickCode);
+    // console.log(isChecked);
     if (isChecked) {
       // チェックが入ったら
       axios // APIを叩く
@@ -77,7 +77,7 @@ const Fetch = () => {
           // 確認用
           // console.log(res.data.result.data[0].data);
           // console.log(prefPopulation);
-          console.log(prefList);
+          // console.log(prefList);
         })
         .catch((err) => {
           setIsLoaded(true);
@@ -93,7 +93,8 @@ const Fetch = () => {
       <Graph allData={prefList} />
       <ul style={{ paddingRight: "20px" }}>
         {post.result.map((item, index) => (
-          <label key={index}>
+          // 折り返しをきれいにする
+          <label key={index} style={{ display: "inline-block" }}>
             {/* // mapして要素増やしたらkeyする */}
             <input
               onChange={handleChange} // 押した時に実行する関数

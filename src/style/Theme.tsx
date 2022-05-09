@@ -9,7 +9,7 @@ export const LightTheme: Theme = {
 
 export const DarkTheme: Theme = {
   theme: {
-    color: "#fff",
-    bgColor: "#000",
+    color: "#f8f8f8",
+    bgColor: "#232323",
   },
 };
