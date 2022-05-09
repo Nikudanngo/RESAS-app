@@ -91,10 +91,18 @@ const Fetch = () => {
   return (
     <div>
       <Graph allData={prefList} />
-      <ul style={{ paddingRight: "20px" }}>
+      <ul style={{ paddingRight: "20px", fontSize: "1em" }}>
         {post.result.map((item, index) => (
           // 折り返しをきれいにする
-          <label key={index} style={{ display: "inline-block" }}>
+          <label
+            key={index}
+            style={{
+              display: "inline-block",
+              padding: "5px 5px",
+              marginRight: "5px",
+              textAlign: "justify",
+            }}
+          >
             {/* // mapして要素増やしたらkeyする */}
             <input
               onChange={handleChange} // 押した時に実行する関数
