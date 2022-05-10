@@ -99,20 +99,29 @@ const Fetch = () => {
         {post.result.map((item, index) => (
           // 折り返しをきれいにする
           <label
+            //  mapして要素増やしたらkeyする
+            // 中央寄せ
             key={index}
             style={{
+              // この辺は無理矢理 ボタン全体のスタイル 縦書き
               display: "inline-block",
-              padding: "5px 5px",
-              marginRight: "5px",
-              textAlign: "justify",
+              marginBottom: "10px",
+              writingMode: "vertical-rl",
+              verticalAlign: "top",
+              textAlign: "right",
             }}
           >
-            {/* // mapして要素増やしたらkeyする */}
             <input
               onChange={handleChange} // 押した時に実行する関数
               name={item.prefName} //県名
               type="checkbox" //チェックボックス
               value={item.prefCode} //県コード
+              style={{
+                // この辺は無理矢理 checkboxのスタイル 中央寄せ調整
+                marginRight: "12px",
+                writingMode: "vertical-rl",
+                verticalAlign: "middle",
+              }}
             />
             {/* 県名表示 */}
             {item.prefName}

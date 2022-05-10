@@ -10,12 +10,15 @@ const Graph = (props: Props) => {
   let series: Highcharts.SeriesOptionsType[] = [];
   let categories: Array<number> = [];
   props.allData.map((aData) => {
-    let data: Array<number> = [];
+    // allData内でmapを回す
+    let data: Array<number> = []; // listを作成
     aData.data.map((d) => {
-      data.push(d.value);
-      categories.push(d.year);
+      // aData内のdata内でmapを回す
+      data.push(d.value); // dataにvalue(人口数)を追加
+      categories.push(d.year); // categoriesにyear(年度)を追加
     });
     series.push({
+      // seriesに整理して追加
       type: "line",
       name: aData.prefName,
       data: data,
@@ -36,10 +39,6 @@ const Graph = (props: Props) => {
     },
     caption: {
       text: "This chart shows the population trend in Japan.",
-    },
-    accessibility: {
-      description:
-        "This chart shows the population trend in Japan. The data is sourced from the RESAS open data portal.",
     },
     xAxis: {
       title: {
