@@ -27,7 +27,9 @@ const Fetch = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [post, setPost] = React.useState<prefecturesItem | null>(null);
   // データを格納するリストを作成
-  const [prefList, setPrefList] = React.useState<prefPopulationItem[]>([]);
+  const [prefPopulationList, setPrefPopulationList] = React.useState<
+    prefPopulationItem[]
+  >([]);
   React.useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -73,7 +75,7 @@ const Fetch = () => {
             prefName: clickName,
             data: res.data.result.data[0].data,
           };
-          setPrefList((prev) => [...prev, dataTmp]);
+          setPrefPopulationList((prev) => [...prev, dataTmp]);
           // 確認用
           // console.log(res.data.result.data[0].data);
           // console.log(prefPopulation);
@@ -85,12 +87,14 @@ const Fetch = () => {
         });
     } else {
       // チェックが外れたら
-      setPrefList((prev) => prev.filter((item) => item.prefName !== clickName));
+      setPrefPopulationList((prev) =>
+        prev.filter((item) => item.prefName !== clickName)
+      );
     }
   };
   return (
     <div>
-      <Graph allData={prefList} />
+      <Graph allData={prefPopulationList} />
       <ul style={{ paddingRight: "20px", fontSize: "1em" }}>
         {post.result.map((item, index) => (
           // 折り返しをきれいにする
